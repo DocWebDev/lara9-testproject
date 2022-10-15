@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostsController extends Controller
 {
@@ -13,6 +14,18 @@ class PostsController extends Controller
      */
     public function index()
     {
+        // prepared statements with query builder
+        // $posts = DB::select('SELECT * FROM posts WHERE id = ?', [1]);
+        // or named params
+        // $posts = DB::select('SELECT * FROM posts WHERE id = :id', ['id' => 1]);
+
+        $post = DB::delete('DELETE FROM posts WHERE id = ?', [3]);
+        dd($post);
+
+        // echo "<pre>";
+        // print_r($posts);
+        // die();
+
         return view('posts.index');
     }
 
@@ -23,7 +36,10 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        $post = DB::insert('INSERT INTO posts (title, excerpt, body, image_path, is_published, min_to_read) VALUES (?, ?, ?, ?, ?, ?)', [
+            'Test-Title', 'Test-Excerpt', 'Test-Content', 'Test-Image-Path', true, 1
+        ]);
+        dd($post);
     }
 
     /**
@@ -56,7 +72,10 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = DB::update('UPDATE posts SET body = ? WHERE id = ?', [
+            'Test-Content', $id
+        ]);
+        dd($post);
     }
 
     /**
@@ -68,7 +87,7 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
