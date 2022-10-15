@@ -5,6 +5,7 @@ use Barryvdh\Debugbar\Twig\Extension\Debug;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FallbackController;
 
 // return a view directly
 // Route::view('/posts', 'posts.index', ['name' => 'Fun Fun Function']);
@@ -14,7 +15,7 @@ use App\Http\Controllers\HomeController;
 // prefixing route
 Route::prefix('/posts')->group(function() {
     Route::get('/', [PostsController::class, 'index'])->name('posts.index');
-    Route::get('/{id}', [PostsController::class, 'show'])->name('posts.show');
+    Route::get('/{id}', [PostsController::class, 'show'])->name('posts.show')->where(['id'=> '[0-9]+']);
     Route::get('/create', [PostsController::class, 'create'])->name('posts.create');
     Route::post('/', [PostsController::class, 'store'])->name('posts.store');
     Route::get('/edit/{id}', [PostsController::class, 'edit'])->name('posts.edit');
@@ -24,3 +25,6 @@ Route::prefix('/posts')->group(function() {
 
 // route for __invoke method
 Route::get('/', HomeController::class)->name('home.index');
+
+// Fallback Route
+Route::fallback(FallbackController::class);
