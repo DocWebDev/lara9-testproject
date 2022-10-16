@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,16 +15,27 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // $post = DB::table('posts')
-        //     ->find(1);
+        // get() and all() are almost the same
+        // except that get allows chaining and it needs
+        // to be the last command like with querybuilders get()
 
-        $posts = DB::table('posts')
-            ->get();
+        // $posts = Post::all();
+        // $posts = Post::get();
+        // $posts = Post::orderBy('id', 'desc')
+        //     ->take(10)
+        //     ->get();
 
-        // return view('posts.index')->with(['post' => $post]);
-        // return view('posts.index', compact('posts'));
+        // $posts = Post::where('min_to_read', 2)->get();
+        // $posts = Post::where('min_to_read', '!=', 2)->get();
+
+        // $posts = Post::get()->count();
+        // $posts = Post::sum('min_to_read');
+        // $posts = Post::avg('min_to_read');
+
+        // $posts = Post::orderBy('updated_at', 'desc')->get();
+
         return view('posts.index', [
-            'posts'=> $posts
+            'posts'=> Post::orderBy('updated_at', 'desc')->get()
         ]);
     }
 
@@ -59,7 +71,18 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        return $id;
+        // if there are no matching results findOrFail will throw an Error
+        // so lets say: the id in the route is greater than the max id in the
+        // posts, the User gets an 404 page back (instead of getting "null" back with
+        // the find method, which is printed on a blank screen)
+
+        // $post = Post::find($id);
+        // $post = Post::findOrFail($id);
+
+        return view('posts.show', [
+            // 'post' => $post
+            'post' => Post::findOrFail($id)
+        ]);
     }
 
     /**
