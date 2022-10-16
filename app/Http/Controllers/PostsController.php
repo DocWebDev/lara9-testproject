@@ -61,19 +61,14 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        // dd($request->title);
+        $request->validate([
+            'title' => 'required|unique:posts|max:255',
+            'excerpt' => 'required',
+            'body' => 'required',
+            'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+            'min_to_read' => 'min:0|max:60',
+        ]);
 
-        // $post = new Post();
-        // $post->title = $request->title;
-        // $post->excerpt = $request->excerpt;
-        // $post->body = $request->body;
-        // $post->image_path = 'tmp';
-        // $post->is_published = $request->is_published == 'on';
-        // $post->min_to_read = $request->min_to_read;
-        // $post->save();
-
-        // with eloquent the save method is implicit
         Post::create([
             'title' => $request->title,
             'excerpt' => $request->excerpt,
