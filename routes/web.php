@@ -15,8 +15,8 @@ use App\Http\Controllers\FallbackController;
 // prefixing route
 Route::prefix('/posts')->group(function() {
     Route::get('/', [PostsController::class, 'index'])->name('posts.index');
-    Route::get('/{id}', [PostsController::class, 'show'])->name('posts.show')->where(['id'=> '[0-9]+']);
     Route::get('/create', [PostsController::class, 'create'])->name('posts.create');
+    Route::get('/{id}', [PostsController::class, 'show'])->name('posts.show')->where(['id'=> '[0-9]+']);
     Route::post('/', [PostsController::class, 'store'])->name('posts.store');
     Route::get('/edit/{id}', [PostsController::class, 'edit'])->name('posts.edit');
     Route::post('/{id}', [PostsController::class, 'update'])->name('posts.update');;

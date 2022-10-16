@@ -9,6 +9,11 @@ class Post extends Model
 {
     use HasFactory;
 
+    //defining columns for mass assignment
+    protected $fillable = [
+        'title', 'excerpt', 'body', 'image_path', 'is_published', 'min_to_read'
+    ];
+
     // optional
     // protected $table = 'posts';
 
@@ -31,4 +36,6 @@ class Post extends Model
     // protected $attributes = [
     //     'is_published' => true
     // ];
+
+
 }

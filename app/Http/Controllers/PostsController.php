@@ -46,10 +46,11 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $post = DB::insert('INSERT INTO posts (title, excerpt, body, image_path, is_published, min_to_read) VALUES (?, ?, ?, ?, ?, ?)', [
-            'Test-Title', 'Test-Excerpt', 'Test-Content', 'Test-Image-Path', true, 1
-        ]);
-        dd($post);
+        // $post = DB::insert('INSERT INTO posts (title, excerpt, body, image_path, is_published, min_to_read) VALUES (?, ?, ?, ?, ?, ?)', [
+        //     'Test-Title', 'Test-Excerpt', 'Test-Content', 'Test-Image-Path', true, 1
+        // ]);
+        // dd($post);
+        return view('posts.create');
     }
 
     /**
@@ -60,7 +61,29 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        // dd($request->title);
+
+        // $post = new Post();
+        // $post->title = $request->title;
+        // $post->excerpt = $request->excerpt;
+        // $post->body = $request->body;
+        // $post->image_path = 'tmp';
+        // $post->is_published = $request->is_published == 'on';
+        // $post->min_to_read = $request->min_to_read;
+        // $post->save();
+
+        // with eloquent the save method is implicit
+        Post::create([
+            'title' => $request->title,
+            'excerpt' => $request->excerpt,
+            'body' => $request->body,
+            'image_path' => 'tmp',
+            'is_published' => $request->is_published == 'on',
+            'min_to_read' => $request->min_to_read
+        ]);
+
+        return redirect(route('posts.index'));
     }
 
     /**
