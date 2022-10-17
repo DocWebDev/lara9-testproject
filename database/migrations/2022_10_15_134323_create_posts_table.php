@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('title')->unique();
             $table->text('excerpt')->nullable();
             $table->text('body');
@@ -22,6 +23,8 @@ return new class extends Migration
             $table->integer('min_to_read')->default(1);
             $table->boolean('is_published');
             $table->timestamps();
+            // adding the constraint
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
