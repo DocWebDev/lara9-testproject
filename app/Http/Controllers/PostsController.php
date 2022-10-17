@@ -16,8 +16,9 @@ class PostsController extends Controller
      */
     public function index()
     {
+        // adding paginate method, 20 rows per page max
         return view('posts.index', [
-            'posts'=> Post::orderBy('updated_at', 'desc')->get()
+            'posts'=> Post::orderBy('updated_at', 'desc')->paginate(5)
         ]);
     }
 
