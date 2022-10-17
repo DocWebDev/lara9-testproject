@@ -29,6 +29,10 @@
                 </div>
             @endif
 
+            @php
+                setlocale(LC_TIME, 'German');
+            @endphp
+
             @foreach ($posts as $post)
             <div class="w-4/5 mx-auto pb-10">
                 <div class="bg-white pt-10 rounded-lg drop-shadow-2xl sm:basis-3/4 basis-full sm:mr-8 pb-10 sm:pb-0">
@@ -47,9 +51,9 @@
                             Made by:
                                 <a href=""
                                 class="text-green-500 italic hover:text-green-400 hover:border-b-2 border-green-400 pb-3 transition-all">
-                                    {{ Auth::user()->name }}
+                                    {{ $post->user->name }}
                                 </a>
-                            on 17-10-2022
+                            am {{ $post->updated_at->formatLocalized('%A, %d. %b. %Y') }}
                         </span>
 
                         <a href={{ route('posts.edit', $post->id) }} class="block italic text-green-500 border-b-1 border-green-400">Edit</a>
