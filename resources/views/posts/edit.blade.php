@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Create')
+@section('title', 'Update')
 
 @section('content')
 <body>
     <div class="w-4/5 mx-auto">
         <div class="text-center pt-20">
             <h1 class="text-3xl text-gray-700">
-                Add new post
+                Update: {{ $post->title }}
             </h1>
             <hr class="border border-1 border-gray-300 mt-10">
         </div>
@@ -28,12 +28,14 @@
                 </ul>
             @endif
         </div>
+
         <form
-            action={{ route('posts.store') }}
+            action={{ route('posts.update', $post->id) }}
             method="POST"
             enctype="multipart/form-data">
 
             @csrf
+            @method('PATCH')
 
             <label for="is_published" class="text-gray-500 text-2xl">
                 Is Published
@@ -42,34 +44,32 @@
                 type="checkbox"
                 class="bg-transparent block border-b-2 inline text-2xl outline-none"
                 name="is_published"
-                {{ old('is_published') == 'on' ? 'checked' : '' }}
+                {{ $post->is_published ? 'checked' : ''}}
             >
 
             <input
                 type="text"
                 name="title"
-                placeholder="Title..."
-                value="{{ old('title') ?? '' }}"
+                value="{{ $post->title }}"
                 class="bg-transparent block border-b-2 w-full h-20 text-2xl outline-none">
 
             <input
                 type="text"
                 name="excerpt"
-                placeholder="Excerpt..."
-                value="{{ old('excerpt') ?? '' }}"
+                value="{{ $post->excerpt }}"
                 class="bg-transparent block border-b-2 w-full h-20 text-2xl outline-none">
 
             <input
                 type="number"
                 name="min_to_read"
-                placeholder="Minutes to read..."
-                value="{{ old('min_to_read') ?? '' }}"
+                value={{ $post->min_to_read }}
                 class="bg-transparent block border-b-2 w-full h-20 text-2xl outline-none">
 
             <textarea
                 name="body"
-                placeholder="Body..."
-                class="py-20 bg-transparent block border-b-2 w-full h-60 text-xl outline-none">{{ old('body') ?? '' }}</textarea>
+                class="py-20 bg-transparent block border-b-2 w-full h-60 text-xl outline-none"
+            >{{ $post->body }}
+            </textarea>
 
             <div class="bg-grey-lighter py-10">
                 <label class="w-44 flex flex-col items-center px-2 py-3 bg-white-rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer">
@@ -78,7 +78,7 @@
                         </span>
                     <input
                         type="file"
-                        name="image"
+                        name="image_path"
                         class="hidden">
                 </label>
             </div>
@@ -86,7 +86,7 @@
             <button
                 type="submit"
                 class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
-                Submit Post
+                Update Post
             </button>
         </form>
     </div>

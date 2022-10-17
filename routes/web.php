@@ -19,7 +19,7 @@ Route::prefix('/posts')->group(function() {
     Route::get('/{id}', [PostsController::class, 'show'])->name('posts.show')->where(['id'=> '[0-9]+']);
     Route::post('/', [PostsController::class, 'store'])->name('posts.store');
     Route::get('/edit/{id}', [PostsController::class, 'edit'])->name('posts.edit');
-    Route::post('/{id}', [PostsController::class, 'update'])->name('posts.update');;
+    Route::patch('/{id}', [PostsController::class, 'update'])->name('posts.update');;
     Route::delete('/{id}', [PostsController::class, 'destroy'])->name('posts.destroy');
 });
 

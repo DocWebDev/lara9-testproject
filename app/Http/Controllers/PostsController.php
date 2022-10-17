@@ -111,10 +111,9 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = DB::update('UPDATE posts SET body = ? WHERE id = ?', [
-            'Test-Content', $id
+        return view('posts.edit', [
+            'post' => Post::where('id', $id)->first()
         ]);
-        dd($post);
     }
 
     /**
@@ -126,6 +125,30 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required|max:255|unique:posts,title,'.$id,
+            'excerpt' => 'required',
+            'body' => 'required',
+            'image' => ['mimes:jpg,png,jpeg', 'max:5048'],
+            'min_to_read' => 'min:0|max:60',
+        ]);
+
+        $post = Post::where('id', $id)->first();
+
+        Post::where('id', $id)->update([
+            'title' => $request->title,
+            'excerpt' => $request->excerpt,
+            'body' => $request->body,
+            'image_path' => $request->image ?? $post->image_path,
+            'is_published' => $request->is_published == 'on',
+            'min_to_read' => $request->min_to_read
+        ]);
+
+        // Post::where('id', $id)->update($request->except([
+        //     '_token', '_method'
+        // ]));
+
+        return redirect(route('posts.index'));
 
     }
 

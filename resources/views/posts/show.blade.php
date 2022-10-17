@@ -23,9 +23,8 @@
                     <a
                         href=""
                         class="font-bold text-green-500 italic hover:text-green-400 hover:border-b-2 border-green-400 pb-3 transition-all py-20">
-                        Code With Dary
                     </a>
-                    On 17-07-2022
+                    On 17-10-2022
                 </span>
             </div>
         </div>

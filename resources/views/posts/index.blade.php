@@ -32,7 +32,7 @@
                 </h2>
 
                 <p class="text-gray-900 text-lg py-8 w-full break-words">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa maiores nisi quasi tenetur voluptatem! At blanditiis dolor doloremque eaque, esse molestiae neque numquam quod repellat rerum sequi sit suscipit veritatis!
+                    {{ $post->body }}
                 </p>
 
                 <span class="text-gray-500 text-sm sm:text-base">
@@ -41,8 +41,10 @@
                            class="text-green-500 italic hover:text-green-400 hover:border-b-2 border-green-400 pb-3 transition-all">
                             Dary
                         </a>
-                    on 13-07-2022
+                    on 17-10-2022
                 </span>
+
+                <a href={{ route('posts.edit', $post->id) }} class="block italic text-green-500 border-b-1 border-green-400">Edit</a>
             </div>
         </div>
     </div>
