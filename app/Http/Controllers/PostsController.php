@@ -16,25 +16,6 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // get() and all() are almost the same
-        // except that get allows chaining and it needs
-        // to be the last command like with querybuilders get()
-
-        // $posts = Post::all();
-        // $posts = Post::get();
-        // $posts = Post::orderBy('id', 'desc')
-        //     ->take(10)
-        //     ->get();
-
-        // $posts = Post::where('min_to_read', 2)->get();
-        // $posts = Post::where('min_to_read', '!=', 2)->get();
-
-        // $posts = Post::get()->count();
-        // $posts = Post::sum('min_to_read');
-        // $posts = Post::avg('min_to_read');
-
-        // $posts = Post::orderBy('updated_at', 'desc')->get();
-
         return view('posts.index', [
             'posts'=> Post::orderBy('updated_at', 'desc')->get()
         ]);
@@ -47,10 +28,6 @@ class PostsController extends Controller
      */
     public function create()
     {
-        // $post = DB::insert('INSERT INTO posts (title, excerpt, body, image_path, is_published, min_to_read) VALUES (?, ?, ?, ?, ?, ?)', [
-        //     'Test-Title', 'Test-Excerpt', 'Test-Content', 'Test-Image-Path', true, 1
-        // ]);
-        // dd($post);
         return view('posts.create');
     }
 
@@ -62,15 +39,6 @@ class PostsController extends Controller
      */
     public function store(PostFormRequest $request)
     {
-        // $request->validate([
-        //     'title' => 'required|unique:posts|max:255',
-        //     'excerpt' => 'required',
-        //     'body' => 'required',
-        //     'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
-        //     'min_to_read' => 'min:0|max:60',
-        // ]);
-
-        // instead of validate()  its validateD() for the FormRequest
         $request->validated();
 
         Post::create([
@@ -93,14 +61,6 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        // if there are no matching results findOrFail will throw an Error
-        // so lets say: the id in the route is greater than the max id in the
-        // posts, the User gets an 404 page back (instead of getting "null" back with
-        // the find method, which is printed on a blank screen)
-
-        // $post = Post::find($id);
-        // $post = Post::findOrFail($id);
-
         return view('posts.show', [
             // 'post' => $post
             'post' => Post::findOrFail($id)
@@ -129,15 +89,6 @@ class PostsController extends Controller
      */
     public function update(PostFormRequest $request, $id)
     {
-        // $request->validate([
-        //     'title' => 'required|max:255|unique:posts,title,'.$id,
-        //     'excerpt' => 'required',
-        //     'body' => 'required',
-        //     'image' => ['mimes:jpg,png,jpeg', 'max:5048'],
-        //     'min_to_read' => 'min:0|max:60',
-        // ]);
-
-        // similar to validation in create() using PostFormRequest
         $request->validated();
 
         $post = Post::where('id', $id)->first();
