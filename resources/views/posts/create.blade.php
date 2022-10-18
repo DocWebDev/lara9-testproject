@@ -1,4 +1,8 @@
 <x-app-layout>
+
+    <x-slot name="meta">
+    </x-slot>
+
     <x-slot name="content">
         <body>
             <div class="w-4/5 mx-auto">
@@ -79,6 +83,27 @@
                                 class="hidden">
                         </label>
                     </div>
+
+                    <input
+                        type="text"
+                        name="meta_description"
+                        placeholder="Meta description..."
+                        value="{{ old('meta_description') ?? '' }}"
+                        class="bg-transparent block w-full h-20 text-2xl">
+
+                    <input
+                        type="text"
+                        name="meta_keywords"
+                        placeholder="Meta keywords..."
+                        value="{{ old('meta_keywords') ?? '' }}"
+                        class="bg-transparent block w-full h-20 text-2xl">
+
+                    <input
+                        type="text"
+                        name="meta_robots"
+                        placeholder="Meta Robots..."
+                        value="{{ old('meta_robots') ?? '' }}"
+                        class="bg-transparent block w-full h-20 text-2xl mb-8">
 
                     <button
                         type="submit"

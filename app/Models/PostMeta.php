@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PostMeta extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'post_id', 'meta_description', 'meta_keywords', 'meta_robots'
+    ];
 }

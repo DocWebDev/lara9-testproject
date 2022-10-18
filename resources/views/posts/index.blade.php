@@ -1,4 +1,8 @@
 <x-app-layout>
+
+    <x-slot name="meta">
+    </x-slot>
+
     <x-slot name="content">
 
         <body class="w-full h-full bg-gray-100">

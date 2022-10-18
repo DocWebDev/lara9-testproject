@@ -1,11 +1,10 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="meta">
+    </x-slot>
 
-
-@section('title', 'Welcome')
-
-
-@section('content')
-    <h1 class="text-3xl font-bold underline">
-        Hello there!
-    </h1>
-@endsection
+    <x-slot name="content">
+        <h1 class="text-3xl font-bold underline">
+            Hello there!
+        </h1>
+    </x-slot>
+</x-app-layout>

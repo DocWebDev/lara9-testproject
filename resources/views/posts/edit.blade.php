@@ -1,4 +1,8 @@
 <x-app-layout>
+
+    <x-slot name="meta">
+    </x-slot>
+
     <x-slot name="content">
         <body>
             <div class="w-4/5 mx-auto">

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('posts');
 });
 
 Route::get('/dashboard', function () {
@@ -24,4 +24,4 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::resource('posts', PostsController::class);
+Route::resource('posts', PostsController::class)->middleware(['auth', 'verified']);
